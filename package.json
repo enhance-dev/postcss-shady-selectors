@@ -1,0 +1,15 @@
+{
+  "name": "@enhance/postcss-shady-selectors",
+  "type": "module",
+  "main": "./index.js",
+  "scripts": {
+    "test": "tape ./test.js | tap-arc"
+  },
+  "devDependencies": {
+    "@enhance/postcss-prettify": "^0.4.1",
+    "postcss": "^8.4.35",
+    "postcss-preset-env": "^9.4.0",
+    "tap-arc": "^1.2.2",
+    "tape": "^5.7.5"
+  }
+}
