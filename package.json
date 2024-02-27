@@ -11,5 +11,6 @@
     "postcss-preset-env": "^9.4.0",
     "tap-arc": "^1.2.2",
     "tape": "^5.7.5"
-  }
+  },
+  "version": "1.0.0"
 }
