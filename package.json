@@ -3,10 +3,12 @@
   "type": "module",
   "main": "./index.js",
   "scripts": {
-    "test": "tape ./test.js | tap-arc"
+    "test": "tape ./test.js | tap-arc",
+    "publish": "clean-publish"
   },
   "devDependencies": {
     "@enhance/postcss-prettify": "^0.4.1",
+    "clean-publish": "^4.3.0",
     "postcss": "^8.4.35",
     "postcss-preset-env": "^9.4.0",
     "tap-arc": "^1.2.2",
