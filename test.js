@@ -1,12 +1,10 @@
 import postcss from 'postcss'
-import preset from 'postcss-preset-env'
 import prettify from '@enhance/postcss-prettify'
 import shady from './index.js'
 import test from 'tape'
 
 function process(css, { scopeTo }) {
   return postcss([
-    preset({ stage: 4 }),
     shady({ scopeTo }),
     prettify()
   ])
@@ -77,62 +75,37 @@ my-tag.something div {
   t.end()
 })
 
-
-test(':host-context() function form', (t) => {
-  t.plan(1)
-
-  const css = `:host-context(.something) div { background:blue; }`
+test('& selector', (t) => {
+  const css = `:host .example {
+      font-family: system-ui;
+      font-size: 1.2rem;
+      & > a {
+        color: tomato;
+        &:hover,
+        &:focus {
+          color: ivory;
+          background-color: tomato;
+        }
+      }
+    }
+  `
   const expected = `
 
-.something my-tag div {
-  background: blue;
-}`
+my-tag .example {
+  font-family: system-ui;
+  font-size: 1.2rem;
+  & > a {
+    color: tomato;
+    &:hover,
+        &:focus {
+      color: ivory;
+      background-color: tomato;
+    }
+  }
+}
+  `
+
   const actual = process(css, { scopeTo: 'my-tag' })
-  t.equal(expected, actual, ':host works')
+  t.equal(expected, actual, 'nesting works')
   t.end()
 })
-
-
-// Selector Lists have inconsistent browser support and it is unclear if the spec for :host :host-context and ::slotted support Selector Lists. The tests below are skipped for now.
-
-// Not supported yet
-test.skip(':host() with selector list', (t) => {
-  const css = `:host(.something, [some=thing]) div { background:blue; }`
-  const expected = `my-tag.something div,
-  my-tag[some=thing] div {
-    background:blue; 
-}`
-  const actual = process(css, { scopeTo: 'my-tag' })
-  t.equal(expected, actual, ':host() with list')
-  t.end()
-})
-
-//Not supported Yet
-test.skip(':host-context() with selector list', (t) => {
-  const css = `:host-context(.something, [some=thing]) div { background:blue; }`
-  const expected = `
-
-.something my-tag div, 
-  [some=thing] my-tag div {
-    background: blue;
-  }`
-  const actual = process(css, { scopeTo: 'my-tag' })
-  t.equal(expected, actual, ':host-context() with list')
-  t.end()
-})
-
-//Not supported yet
-test.skip('::slotted() with selector list', (t) => {
-  const css = `::slotted(.something, [some=thing]) div { background:blue; }`
-  const expected = `
-
-my-tag .something div, 
-  [some=thing] my-tag div {
-    background: blue;
-  }`
-  const actual = process(css, { scopeTo: 'my-tag' })
-  t.equal(expected, actual, '::slotted() with list')
-  t.end()
-})
-
-

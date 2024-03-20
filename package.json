@@ -10,7 +10,6 @@
     "@enhance/postcss-prettify": "^0.4.1",
     "clean-publish": "^4.3.0",
     "postcss": "^8.4.35",
-    "postcss-preset-env": "^9.4.0",
     "tap-arc": "^1.2.2",
     "tape": "^5.7.5"
   },
