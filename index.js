@@ -18,7 +18,9 @@ function selectorConverter(out, { scopeTo = '' }) {
 
   out = /__TAGNAME__/.test(out)
     ? out.replace(/(.*)__TAGNAME__(.*)/, `$1${scopeTo}$2`)
-    : `${scopeTo} ${out}`
+    : out.startsWith('&')
+      ? out
+      : `${scopeTo} ${out}`
 
   return out
 }
