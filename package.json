@@ -6,6 +6,9 @@
     "test": "tape ./test.js | tap-arc",
     "publish": "clean-publish"
   },
+  "files": [
+    "index.js"
+  ],
   "devDependencies": {
     "@enhance/postcss-prettify": "^0.4.1",
     "clean-publish": "^4.3.0",
