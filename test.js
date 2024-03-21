@@ -109,3 +109,38 @@ my-tag .example {
   t.equal(expected, actual, 'nesting works')
   t.end()
 })
+
+test('nesting without &', (t) => {
+  const css = `:host .example {
+      font-family: system-ui;
+      font-size: 1.2rem;
+      > a {
+        color: tomato;
+        &:hover,
+        &:focus {
+          color: ivory;
+          background-color: tomato;
+        }
+      }
+    }
+  `
+  const expected = `
+
+my-tag .example {
+  font-family: system-ui;
+  font-size: 1.2rem;
+  > a {
+    color: tomato;
+    &:hover,
+        &:focus {
+      color: ivory;
+      background-color: tomato;
+    }
+  }
+}
+  `
+
+  const actual = process(css, { scopeTo: 'my-tag' })
+  t.equal(expected, actual, 'nesting without & works')
+  t.end()
+})
